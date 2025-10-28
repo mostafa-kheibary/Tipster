@@ -1,58 +1,141 @@
-# Svelte library
+# 🧠 Tipster
 
-Everything you need to build a Svelte library, powered by [`sv`](https://npmjs.com/package/sv).
+Beautiful, flexible, and easy-to-use **tooltips for Svelte**.
+Create reusable tooltip styles, customize colors, borders, and positions — all with a tiny footprint ✨
 
-Read more about creating a library [in the docs](https://svelte.dev/docs/kit/packaging).
+---
 
-## Creating a project
+### 🚀 Features
 
-If you're seeing this, you've probably already done this step. Congrats!
+- 🎨 Customizable background, color, border, font, and offset
+- 🪄 `createTipster()` to define reusable tooltip presets
+- ⚡ Simple `use:tooltip` directive for quick usage
+- 📍 Smart positioning (`top`, `bottom`, `left`, `right`)
+- 🧩 Built with Svelte’s reactivity and clean architecture
 
-```sh
-# create a new project in the current directory
-npx sv create
+---
 
-# create a new project in my-app
-npx sv create my-app
+### 📦 Installation
+
+```bash
+npm install tipsterjs
+# or
+yarn add tipsterjs
+# or
+pnpm add tipsterjs
 ```
 
-## Developing
+---
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+### 💡 Quick Example
 
-```sh
-npm run dev
+```svelte
+<script>
+	import { createTipster, tooltip } from 'tipsterjs';
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+	const redTooltip = createTipster({
+		backgroundColor: 'red',
+		color: 'white',
+		borderColor: 'darkred',
+		borderWidth: '2px',
+		fontSize: '14px',
+		position: 'top',
+		offset: 30
+	});
+</script>
+
+<h1>Tipster Demo</h1>
+<p>
+	Visit
+	<a
+		use:redTooltip={{ offset: 5 }}
+		title="Custom reusable tooltip"
+		href="https://svelte.dev/docs/kit"
+	>
+		svelte.dev/docs/kit
+	</a>
+	to read the documentation
+</p>
+
+<p>
+	Or try a quick inline tooltip:
+	<a
+		use:tooltip={{ backgroundColor: 'blue', color: 'white', position: 'bottom' }}
+		title="Dynamic tooltip powered by Tipster"
+	>
+		hover me
+	</a>
+</p>
 ```
 
-Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
+---
 
-## Building
+### ⚙️ API
 
-To build your library:
+#### `use:tooltip`
 
-```sh
-npm pack
+Attach a tooltip directly to any element.
+
+**Props:**
+
+| Prop              | Type                                     | Default       | Description                  |
+| ----------------- | ---------------------------------------- | ------------- | ---------------------------- |
+| `backgroundColor` | `string`                                 | `#333`        | Tooltip background color     |
+| `color`           | `string`                                 | `#fff`        | Text color                   |
+| `borderColor`     | `string`                                 | `transparent` | Border color                 |
+| `borderWidth`     | `string`                                 | `0`           | Border thickness             |
+| `fontSize`        | `string`                                 | `12px`        | Text size                    |
+| `position`        | `'top' \| 'bottom' \| 'left' \| 'right'` | `bottom`      | Tooltip position             |
+| `offset`          | `number`                                 | `12`          | Distance from target element |
+| `delay`           | `number`                                 | `100`         | Delay before showing tooltip |
+
+---
+
+#### `createTipster(defaults)`
+
+Create a reusable tooltip directive with shared defaults.
+
+```js
+const myTooltip = createTipster({
+	backgroundColor: '#222',
+	color: '#fff',
+	position: 'top'
+});
 ```
 
-To create a production version of your showcase app:
+Then use it anywhere:
 
-```sh
-npm run build
+```svelte
+<a use:myTooltip={{ offset: 10 }} title="Hello!">Hover me</a>
 ```
 
-You can preview the production build with `npm run preview`.
+---
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+### 🧠 How It Works
 
-## Publishing
+Tipster:
 
-Go into the `package.json` and give your package the desired name through the `"name"` option. Also consider adding a `"license"` field and point it to a `LICENSE` file which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
+1. Reads the element’s `title` attribute
+2. Creates a Svelte tooltip component dynamically
+3. Tracks mouse movement & viewport resizing
+4. Cleans up everything on unmount
 
-To publish your library to [npm](https://www.npmjs.com):
+Lightweight, no dependencies, and works seamlessly in any Svelte project 💪
 
-```sh
-npm publish
+### 🤝 Contributing
+
+Got an idea? Found a bug?
+PRs and issues are always welcome 💙
+
+```bash
+git clone https://github.com/mostafa-kheibary/Tipster
+cd Tipster
+pnpm install
+pnpm dev
 ```
+
+---
+
+### 📜 License
+
+**MIT** — do whatever you want, just don’t remove the credit 🙃

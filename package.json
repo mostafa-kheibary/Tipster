@@ -12,6 +12,10 @@
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint ."
 	},
+	"repository": {
+		"url": "https://github.com/mostafa-kheibary/Tipster",
+		"type": "github"
+	},
 	"files": [
 		"dist",
 		"!dist/**/*.test.*",
