@@ -70,3 +70,9 @@ export const tooltip = (element: HTMLElement, props?: Props) => {
 		}
 	};
 };
+
+export const createTipster = (defaults: Partial<Props>) => {
+	return (element: HTMLElement, props?: Props) => {
+		return tooltip(element, { ...defaults, ...props });
+	};
+};
