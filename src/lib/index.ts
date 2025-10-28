@@ -1,8 +1,8 @@
-import Tooltip from '$components/Tooltip.svelte';
+import Tooltip from './components/Tooltip.svelte';
 import { writable } from 'svelte/store';
 import { mount, unmount } from 'svelte';
-import { generateUid } from '$utils/generateUid.js';
-import { calculateTooltipPosition } from '$utils/calculateTooltipPosition.js';
+import { generateUid } from './utils/generateUid.js';
+import { calculateTooltipPosition } from './utils/calculateTooltipPosition.js';
 import type { Position } from '../types/index.js';
 
 interface Props {

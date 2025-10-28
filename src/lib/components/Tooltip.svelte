@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { cx } from '$utils/cx.js';
+	import { cx } from '../utils/cx.js';
 	import type { Writable } from 'svelte/store';
 	import type { Position } from '../../types/index.js';
 
