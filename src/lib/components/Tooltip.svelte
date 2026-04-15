@@ -5,29 +5,13 @@
 
 	interface TooltipProps {
 		id: string;
-		text: string;
+		text: Writable<string>;
 		position: Writable<Position>;
 		isTooltipShowing: Writable<boolean>;
 		targetPosition: Writable<{ x: number; y: number }>;
-		color?: string;
-		backgroundColor?: string;
-		borderWidth?: string;
-		borderColor?: string;
-		fontSize?: string;
 	}
 
-	let {
-		id,
-		targetPosition,
-		isTooltipShowing,
-		color = '#000',
-		backgroundColor = '#fff',
-		position,
-		borderColor,
-		borderWidth,
-		fontSize,
-		text
-	}: TooltipProps = $props();
+	let { id, targetPosition, isTooltipShowing, position, text }: TooltipProps = $props();
 
 	const arrowPosition = {
 		bottom: 'tipster-arrow--bottom',
@@ -36,19 +20,14 @@
 		right: 'tipster-arrow--right'
 	};
 
-	let isActive = $derived($isTooltipShowing ? true : false);
+	let isActive = $derived($isTooltipShowing && $text ? true : false);
 </script>
 
 <div
-	style="
-  --background-color: {backgroundColor};
-  --color: {color};
-  --font-size: {fontSize};
-  left: {$targetPosition.x}px;
-  top: {$targetPosition.y}px;
-  border: solid {borderWidth || '0'} {borderColor};
-  "
 	id="tipster-{id}"
+	style="
+	left: {$targetPosition.x}px;
+  top: {$targetPosition.y}px;"
 	class={['tipster', `tipster--${$position}`, cx({ 'tipster--active': isActive })]}
 >
 	<svg
@@ -58,16 +37,15 @@
 		viewBox="0 0 18 12"
 		xmlns="http://www.w3.org/2000/svg"
 		aria-hidden="true"
-		fill={backgroundColor}
-		stroke={borderColor}
-		stroke-width={borderWidth}
+		fill="current"
+		stroke="current"
 		stroke-linejoin="arcs"
 	>
 		<path d="M0 12 L9 0 L18 12 Z" fill="#fff" stroke="none" />
 		<path d="M0 12 L9 0 L18 12" />
 	</svg>
 
-	<div class="tipster__text">{text}</div>
+	<div class="tipster__text">{$text}</div>
 </div>
 
 <style>
@@ -99,9 +77,8 @@
 				opacity 0.2s ease,
 				transform 0.2s ease;
 			box-sizing: border-box;
-			font-size: var(--font-size);
-			background-color: var(--background-color);
-			color: var(--color);
+			background-color: #fff;
+			color: #000;
 		}
 		.tipster--bottom {
 			transform: translateY(4px);

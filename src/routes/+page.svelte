@@ -1,24 +1,15 @@
 <script>
 	import { createTipster, tooltip } from '../lib/index.js';
-
-	const redTooltip = createTipster({
-		backgroundColor: 'red',
-		color: 'white',
-		borderColor: 'darkred',
-		borderWidth: '2px',
-		fontSize: '14px',
-		position: 'top',
-		offset: 30
-	});
 </script>
 
 <div>
 	<h1>Tipster Demo</h1>
+	<button use:tooltip data-title="hello">button</button>
 	<p>
 		Visit
 		<a
-			use:redTooltip={{ offset: 5 }}
-			title="Custom reusable tooltip"
+			use:tooltip={{ offset: 5 }}
+			data-title="Custom reusable tooltip"
 			href="https://svelte.dev/docs/kit"
 		>
 			svelte.dev/docs/kit
@@ -29,8 +20,8 @@
 	<p>
 		Or try a quick inline tooltip:
 		<a
-			use:tooltip={{ backgroundColor: 'blue', color: 'white', position: 'bottom' }}
-			title="Dynamic tooltip powered by Tipster"
+			use:tooltip={{ position: 'bottom' }}
+			data-title="Dynamic tooltip powered by Tipster"
 			href="#"
 		>
 			hover me
