@@ -1,141 +1,200 @@
-# 🧠 Tipster
+# ✨ Tipster
 
-Beautiful, flexible, and easy-to-use **tooltips for Svelte**.
-Create reusable tooltip styles, customize colors, borders, and positions — all with a tiny footprint ✨
+Beautiful, flexible, and modern **tooltips for Svelte 5**.
 
----
-
-### 🚀 Features
-
-- 🎨 Customizable background, color, border, font, and offset
-- 🪄 `createTipster()` to define reusable tooltip presets
-- ⚡ Simple `use:tooltip` directive for quick usage
-- 📍 Smart positioning (`top`, `bottom`, `left`, `right`)
-- 🧩 Built with Svelte’s reactivity and clean architecture
+Built with **Floating UI**, **attachments**, and **Svelte snippets** to create elegant floating experiences with minimal code.
 
 ---
 
-### 📦 Installation
+## 🚀 Features
+
+- ✨ Beautiful default styles
+- 🎯 Smart positioning powered by Floating UI
+- 🧩 Svelte 5 snippets API
+- 🎨 Fully customizable appearance
+- ⏱️ Delay support
+- 🎮 Controlled and uncontrolled modes
+- 📦 Tiny footprint
+- 📱 Automatic flipping and viewport collision detection
+- 🔥 Rich content support
+
+---
+
+## 📦 Installation
 
 ```bash
-npm install tipsterjs
+npm install tipster
 # or
-yarn add tipsterjs
+pnpm add tipster
 # or
-pnpm add tipsterjs
+yarn add tipster
 ```
 
 ---
 
-### 💡 Quick Example
+## ⚡ Quick Start
 
 ```svelte
 <script>
-	import { createTipster, tooltip } from 'tipsterjs';
-
-	const redTooltip = createTipster({
-		backgroundColor: 'red',
-		color: 'white',
-		borderColor: 'darkred',
-		borderWidth: '2px',
-		fontSize: '14px',
-		position: 'top',
-		offset: 30
-	});
+	import { Tooltip } from 'tipster';
 </script>
 
-<h1>Tipster Demo</h1>
-<p>
-	Visit
-	<a
-		use:redTooltip={{ offset: 5 }}
-		title="Custom reusable tooltip"
-		href="https://svelte.dev/docs/kit"
-	>
-		svelte.dev/docs/kit
-	</a>
-	to read the documentation
-</p>
-
-<p>
-	Or try a quick inline tooltip:
-	<a
-		use:tooltip={{ backgroundColor: 'blue', color: 'white', position: 'bottom' }}
-		title="Dynamic tooltip powered by Tipster"
-	>
-		hover me
-	</a>
-</p>
+<Tooltip text="Hello from Tipster">
+	{#snippet children(props)}
+		<button {...props}>
+			Hover me
+		</button>
+	{/snippet}
+</Tooltip>
 ```
 
 ---
 
-### ⚙️ API
-
-#### `use:tooltip`
-
-Attach a tooltip directly to any element.
-
-**Props:**
-
-| Prop              | Type                                     | Default       | Description                  |
-| ----------------- | ---------------------------------------- | ------------- | ---------------------------- |
-| `backgroundColor` | `string`                                 | `#333`        | Tooltip background color     |
-| `color`           | `string`                                 | `#fff`        | Text color                   |
-| `borderColor`     | `string`                                 | `transparent` | Border color                 |
-| `borderWidth`     | `string`                                 | `0`           | Border thickness             |
-| `fontSize`        | `string`                                 | `12px`        | Text size                    |
-| `position`        | `'top' \| 'bottom' \| 'left' \| 'right'` | `bottom`      | Tooltip position             |
-| `offset`          | `number`                                 | `12`          | Distance from target element |
-| `delay`           | `number`                                 | `100`         | Delay before showing tooltip |
-
----
-
-#### `createTipster(defaults)`
-
-Create a reusable tooltip directive with shared defaults.
-
-```js
-const myTooltip = createTipster({
-	backgroundColor: '#222',
-	color: '#fff',
-	position: 'top'
-});
-```
-
-Then use it anywhere:
+## 🎨 Placement
 
 ```svelte
-<a use:myTooltip={{ offset: 10 }} title="Hello!">Hover me</a>
+<Tooltip text="Top tooltip" placement="top">
+	{#snippet children(props)}
+		<button {...props}>
+			Top
+		</button>
+	{/snippet}
+</Tooltip>
+```
+
+Available placements:
+
+- `top`
+- `bottom`
+- `left`
+- `right`
+
+---
+
+## 🧩 Rich Content
+
+Tooltips can render any Svelte content.
+
+```svelte
+<Tooltip placement="top">
+	{#snippet text()}
+		<div class="font-semibold">
+			Deploy Complete
+		</div>
+
+		<div class="text-sm">
+			Your application is now live.
+		</div>
+	{/snippet}
+
+	{#snippet children(props)}
+		<button {...props}>
+			Hover me
+		</button>
+	{/snippet}
+</Tooltip>
 ```
 
 ---
 
-### 🧠 How It Works
+## ⏱️ Delay
 
-Tipster:
+```svelte
+<Tooltip
+	text="Wait for it..."
+	delay={1000}
+>
+	{#snippet children(props)}
+		<button {...props}>
+			Hover me
+		</button>
+	{/snippet}
+</Tooltip>
+```
 
-1. Reads the element’s `title` attribute
-2. Creates a Svelte tooltip component dynamically
-3. Tracks mouse movement & viewport resizing
-4. Cleans up everything on unmount
+---
 
-Lightweight, no dependencies, and works seamlessly in any Svelte project 💪
+## 🎮 Controlled Mode
 
-### 🤝 Contributing
+```svelte
+<script>
+	let open = $state(false);
+</script>
 
-Got an idea? Found a bug?
-PRs and issues are always welcome 💙
+<Tooltip
+	text="Controlled tooltip"
+	shouldShowTooltip={open}
+>
+	{#snippet children(props)}
+		<button {...props}>
+			Button
+		</button>
+	{/snippet}
+</Tooltip>
+```
+
+---
+
+## 🎨 Custom Styling
+
+```svelte
+<Tooltip
+	text="Custom theme"
+	class="bg-indigo-500 text-white"
+	arrowClass="bg-indigo-500"
+>
+	{#snippet children(props)}
+		<button {...props}>
+			Hover me
+		</button>
+	{/snippet}
+</Tooltip>
+```
+
+---
+
+## ⚙️ Props
+
+| Prop                | Type                                     | Default     |
+| ------------------- | ---------------------------------------- | ----------- |
+| `text`              | `string`                                 | `undefined` |
+| `placement`         | `'top' \| 'bottom' \| 'left' \| 'right'` | `'top'`     |
+| `delay`             | `number`                                 | `100`       |
+| `shouldShowTooltip` | `boolean`                                | `undefined` |
+| `class`             | `string`                                 | `''`        |
+| `arrowClass`        | `string`                                 | `''`        |
+
+---
+
+## 💡 Why Tipster?
+
+Tipster combines the power of Floating UI with Svelte 5's new composition model.
+
+- No wrapper components
+- No complicated APIs
+- Flexible snippets
+- Rich content support
+- Automatic positioning
+- Beautiful defaults
+
+---
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome.
 
 ```bash
-git clone https://github.com/mostafa-kheibary/Tipster
-cd Tipster
+git clone https://github.com/mostafa-kheibary/tipster
+cd tipster
+
 pnpm install
 pnpm dev
 ```
 
 ---
 
-### 📜 License
+## 📄 License
 
-**MIT** — do whatever you want, just don’t remove the credit 🙃
+MIT © Mostafa Kheibary
+
+Built with ❤️ for the Svelte community.
