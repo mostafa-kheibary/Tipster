@@ -43,7 +43,7 @@
 	const {
 		children,
 		placement: placementProp = 'top',
-		offset =8,
+		offset = 8,
 		delay = 0,
 		text,
 		shouldShowTooltip,
@@ -102,7 +102,7 @@
 		});
 	};
 	const showTooltip = () => {
-		console.log('run')
+		console.log('run');
 		if (delayTimeoutId) clearTimeout(delayTimeoutId);
 		delayTimeoutId = setTimeout(() => {
 			isTooltipVisible = true;
@@ -115,35 +115,35 @@
 	};
 </script>
 
+<div
+	bind:this={floatingElement}
+	style:--left="{floatingPosition.left}px"
+	style:--top="{floatingPosition.top}px"
+	class={cn([
+		'z-[1000000] invisible fixed top-(--top) left-(--left) w-max scale-x-90 rounded-lg bg-zinc-800',
+		'max-w-100',
+		'px-4 py-1 text-sm font-semibold text-white opacity-0 transition-[transform,scale,opacity,visibility] duration-300',
+		{ 'visible scale-x-100 opacity-100': shouldShowTooltip ?? isTooltipVisible },
+		props.class
+	])}
+>
+	{#if typeof text === 'string'}
+		{text}
+	{:else}
+		{@render text()}
+	{/if}
 	<div
-		bind:this={floatingElement}
-		style:--left="{floatingPosition.left}px"
-		style:--top="{floatingPosition.top}px"
+		style:--left="{arrowPosition.left}px"
+		style:--right="{arrowPosition.right}px"
+		style:--top="{arrowPosition.top}px"
+		style:--bottom="{arrowPosition.bottom}px"
 		class={cn([
-			'z-[1000000] invisible fixed top-(--top) left-(--left) w-max scale-x-90 rounded-lg bg-zinc-800',
-			'max-w-100',
-			'px-4 py-1 text-sm font-semibold text-white opacity-0 transition-[transform,scale,opacity,visibility] duration-300',
-			{ 'visible scale-x-100 opacity-100': shouldShowTooltip ?? isTooltipVisible },
-			props.class
+			'z-[1000000] fixed top-(--top) right-(--right) bottom-(--bottom) left-(--left) h-2.5 w-2.5 rotate-45 rounded-[1.5px] bg-zinc-800',
+			props.arrowClass
 		])}
-	>
-		{#if typeof text === 'string'}
-			{text}
-		{:else}
-			{@render text()}
-		{/if}
-		<div
-			style:--left="{arrowPosition.left}px"
-			style:--right="{arrowPosition.right}px"
-			style:--top="{arrowPosition.top}px"
-			style:--bottom="{arrowPosition.bottom}px"
-			class={cn([
-				'z-[1000000] fixed top-(--top) right-(--right) bottom-(--bottom) left-(--left) h-2.5 w-2.5 rotate-45 rounded-[1.5px] bg-zinc-800',
-				props.arrowClass
-			])}
-			bind:this={arrowElement}
-		></div>
-	</div>
+		bind:this={arrowElement}
+	></div>
+</div>
 
 {@render children({
 	[createAttachmentKey()]: (node) => handleRenderTooltip(node),
