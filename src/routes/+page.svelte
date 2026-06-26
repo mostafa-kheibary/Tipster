@@ -54,7 +54,7 @@
 						{...props}
 						class="rounded-xl border border-white/10 bg-white/5 px-6 py-3 backdrop-blur"
 					>
-						npm install tipster
+						npm install tipsterjs
 					</button>
 				{/snippet}
 			</Tooltip>
@@ -177,7 +177,7 @@
 
 			<pre
 				class="overflow-auto rounded-2xl bg-black p-6 text-green-400"
-			><code>npm install tipster</code></pre>
+			><code>npm install tipsterjs</code></pre>
 		</div>
 	</div>
 </section>

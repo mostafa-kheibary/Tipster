@@ -23,11 +23,11 @@ Built with **Floating UI**, **attachments**, and **Svelte snippets** to create e
 ## 📦 Installation
 
 ```bash
-npm install tipster
+npm install tipsterjs
 # or
-pnpm add tipster
+pnpm add tipsterjs
 # or
-yarn add tipster
+yarn add tipsterjs
 ```
 
 ---
